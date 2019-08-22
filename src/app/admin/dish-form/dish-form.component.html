@@ -1,0 +1,44 @@
+<div fxFlex fxFlexOffset="20px" class="form-size">
+    <h3>Send us your Dish</h3>
+    <p>{{ dishForm.value | json }} {{ dishForm.status | json }}</p>
+
+    <form novalidate [formGroup]="dishForm" #dform="ngForm" (ngSubmit)="onSubmit(dishForm.value)" >
+      <p>
+        <mat-form-field class="half-width">
+          <input matInput formControlName="name" placeholder="Name" type="text" required>
+          <mat-error *ngIf="formErrors.name">{{formErrors.name}}</mat-error>
+        </mat-form-field>
+        <mat-form-field class="half-width">
+          <input matInput formControlName="category" placeholder="Categorie" type="text" required>
+          <mat-error *ngIf="formErrors.category">{{formErrors.category}}</mat-error>
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field class="half-width">
+          <input matInput formControlName="price" placeholder="Price" type="number" >
+        </mat-form-field>
+        <mat-form-field class="half-width">
+          <input matInput formControlName="label" placeholder="label" type="text"  >
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-checkbox [color]="color" formControlName="featured" >Featured</mat-checkbox>
+      </p>
+
+      <p>
+        <mat-form-field class="full-width">
+          <textarea matInput formControlName="description" placeholder="description" rows=8></textarea>
+        </mat-form-field>
+      </p>
+
+      <div class="half-width">
+            <input (change)="detectFiles($event)" formControlName="image" placeholder="image" type="file"  accept="image/*" >
+      </div>
+
+      <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="dishForm.invalid || fileIsUploading" >Submit</button>
+    </form>
+
+
+  </div>

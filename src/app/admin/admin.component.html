@@ -1,0 +1,37 @@
+<div class="container"
+     fxLayout="column"
+     fxLayoutGap="10px">
+
+  <div fxFlex>
+    <div>
+      <h3>Admin Dishes</h3>
+      <hr>
+    </div>
+
+      <button mat-raised-button  color="primary" (click)="onNewDish()">
+          Edit a New dish
+      </button>
+  </div>
+
+  <div fxFlex *ngIf="dishes" fxLayout="row" fxLayout.xs="column"  fxLayoutAlign="space-around center" fxLayoutGap="20px grid">
+    <mat-list>
+      <mat-list-item *ngFor="let dish of dishes; let id = index;" [class]="items">
+          <h4 mat-line>{{dish.name | uppercase}}</h4>
+          <p mat-line>{{dish.category }}</p>
+          <p mat-line>Crée le : {{dish.createdAt.toDate() | date : 'short'}}</p>
+          <p mat-line><img height="70px" src="{{dish.image}}" alt={{dish.name}} /></p>
+          <button mat-stroked-button color="primary" (click)="onViewThisDish(this.dish._id)">Update</button>
+          <button mat-stroked-button  color="warn" (click)="deleteThisDish(this.dish._id)">Delete</button>
+          <hr>
+      </mat-list-item >
+    </mat-list>
+  </div>
+
+  <div [hidden]="dishes || errMess">
+      <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
+  </div>
+  <div *ngIf="errMess">
+    <h2>Error</h2>
+    <h4>{{errMess}}</h4>
+  </div>
+</div>
